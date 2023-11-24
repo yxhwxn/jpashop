@@ -1,4 +1,4 @@
-package jpabook.jpashop;
+package jpabook.jpashop.tutorial;
 
 import org.springframework.stereotype.Repository;
 
@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 // Repository: 엔티티들을 찾아주는 역할
 @Repository
-public class MemberRepository {
+public class MemberRepositoryTest {
 
     @PersistenceContext
     private EntityManager em;
