@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.item;
 
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,7 @@ public abstract class Item {
     private List<Category> categories = new ArrayList<>();
 
     //==비즈니스 로직==//
+    // 데이터(stockQuantity)를 가지고 있는 엔티티(item)에 비즈니스 로직이 직접 있어야 좋다.
 
     /**
      * stock 증가
