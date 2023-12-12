@@ -7,7 +7,7 @@
     - ▶️ `yh/Desktop/study-docs/spring-inflearn`에 있는 강의자료 보면서 개발 Tips, 개념 이해하기❕
 
 ---
-## Project Architecture
+## Project Architecture 🖥️
 - Gitflow Workflow 기반으로, 이슈별로 나눠진 `READ.ME` 파일에서 챕터별로 어떤 내용을 배웠는지 각 이슈 `READ.ME`에서 확인할 것.
 
 # ⬇️⬇️⬇️
