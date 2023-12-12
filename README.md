@@ -1,5 +1,8 @@
 # What I Learned 📚
 
+> ### jpashop 개발이 완료되면, 반드시 패키지 모듈 관계 다시 살펴보기❗️ <br>
+> ex. **controller**에서 **service**의 메소드를 호출 하며, **service**에서는 **repository** 메소드를 호출한다.
+
 이슈별로 나눠진 `READ.ME` 파일에서 챕터별로 어떤 내용을 배웠는지 각 이슈 `READ.ME`에서 확인할 것.
 
 # ⬇️⬇️⬇️
