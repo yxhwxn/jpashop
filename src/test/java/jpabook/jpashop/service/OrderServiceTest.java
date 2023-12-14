@@ -39,7 +39,7 @@ public class OrderServiceTest {
     @Test
     public void 상품주문() throws Exception {
         //given
-        Member member = createMember("회원1", new Address("서울", "경기", "123-123"));
+        Member member = createMember();
         Book book = createBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
@@ -60,7 +60,7 @@ public class OrderServiceTest {
     @Test(expected = NotEnoughStockException.class)
     public void 상품주문_재고수량초과() throws Exception {
         //given
-        Member member = createMember("회원1", new Address("서울", "경기", "123-123"));
+        Member member = createMember();
         Item item = createBook("시골 JPA", 10000, 10);
 
         int orderCount = 11;
@@ -75,13 +75,32 @@ public class OrderServiceTest {
     @Test
     public void 주문취소() throws Exception {
         //given
+        Member member = createMember();
+        Book item = createBook("시골 JPA", 10000, 10);
+
+        int orderCount = 2;
+
+        Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
 
         //when
+        orderService.cancelOrder(orderId);
 
         //then
+        Order getOrder = orderRepository.findOne(orderId);
+
+        assertEquals("주문 취소시 상태는 CANCEL이다.", OrderStatus.CANCEL, getOrder.getStatus());
+        assertEquals("주문이 취소된 상품은 그만큼 재고가 증가해야 한다.", 10, item.getStockQuantity());
     }
 
     // Dummy data 메서드화
+    private Member createMember() {
+        Member member = new Member();
+        member.setName("회원 1");
+        member.setAddress(new Address("서울", "경기", "123-123"));
+        em.persist(member);
+        return member;
+    }
+
     private Book createBook(String name, int price, int stockQuantity) {
         Book book = new Book();
         book.setName(name);
@@ -91,11 +110,4 @@ public class OrderServiceTest {
         return book;
     }
 
-    private Member createMember(String name, Address address) {
-        Member member = new Member();
-        member.setName(name);
-        member.setAddress(address);
-        em.persist(member);
-        return member;
-    }
 }
