@@ -1,6 +1,9 @@
 spring: #띄어쓰기 없음
+  thymeleaf:
+    prefix: classpath:/templates/home
+    suffix: .html
   datasource: #띄어쓰기 2칸
-    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE #4칸
+    url: jdbc:h2:tcp://localhost/~/jpashop; #4칸
     username: sa
     password:
     driver-class-name: org.h2.Driver
