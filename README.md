@@ -8,7 +8,7 @@
 
 ---
 ## ✅ Project Flow 
-- Gitflow Workflow 기반으로, 이슈별로 나눠진 `READ.ME` 파일에서 챕터별로 어떤 내용을 배웠는지 각 이슈 `READ.ME`에서 확인할 것.
+- Gitflow Workflow(issue branch -> PR)
 - Project board 기능을 활용한 스케줄링(TODO, In progress, Done)
 
 ## ✅ 애플리케이션 아키텍처 
