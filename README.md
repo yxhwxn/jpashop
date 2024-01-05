@@ -8,7 +8,7 @@
 
 ---
 
-## ✅ Project Flow 
+## ✅ Project Flow
 
 - Gitflow Workflow(issue branch -> PR)
 - Project board 기능을 활용한 스케줄링(TODO, In progress, Done)
@@ -76,5 +76,17 @@
 - https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#naming
 
 5. 양방향 관계에서의 연관 관계 편의 메서드 사용할 것.
+
+## ✅ JPA 사용시 주의점
+
+- 엔티티는 핵심 로직만 구현하고, 최대한 순수하게 유지해야한다.
+- 최대한 다른 어디에 dependency 없이 핵심 비즈니스 로직에만 dependency가 있어야 한다.
+    - 폼 객체 vs. 엔티티 직접 사용
+        - 요구사항이 정말 간단할 경우에는 폼 객체(MemberForm) 없이 엔티티(Member)를 직접 등록 및 수정해도 된다.
+        - 하지만, 사용자의 요구사항이 복잡해질수록(대부분의 경우), 엔티티에 화면을 처리하기 위한 API들이 증가한다.
+        - 이 때, 엔티티는 화면에 종속적으로 변하게 되어 지저분해져 유지보수가 어려워진다.
+        - 따라서 ❗️
+            - 엔티티는 핵심 비즈니스 로직만 가지고 있고, 화면을 위한 로직은 따로 관리해야 한다.
+            - 화면에 맞는 API들은 폼 객체나 DTO(Data Transfer Object)를 활용한다.
 
 
