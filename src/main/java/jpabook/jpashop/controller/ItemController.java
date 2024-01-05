@@ -16,7 +16,7 @@ public class ItemController {
 
     /**
      * Model 객체를 통해 form 이라는 이름으로 'BookForm' 객체를 뷰로 전달
-     * 이렇게 함으로써 뷰에서는 해당 폼 객체를 이용하여 사용자에게 입력을 받을 수 있게 됨
+     * 이렇게 함으로써 items/new" 경로로 들어온 사용자에게 createItemForm 뷰 페이지에서 BookForm 객체를 사용하여 사용자에게 입력을 받을 수 있게 됨
      */
     @GetMapping("/items/new")
     public String createForm(Model model) {
@@ -24,6 +24,7 @@ public class ItemController {
         return "items/createItemForm";
     }
 
+    // 상품 등록
     @PostMapping("items/new")
     public String create(BookForm form) {
         Book book = new Book();
@@ -34,6 +35,6 @@ public class ItemController {
         book.setIsbn(form.getIsbn());
 
         itemService.saveItem(book);
-        return "redirect:/items";
+        return "redirect:/items";   // summit 버튼을 누르면 상품 목록 조회로 redirection
     }
 }

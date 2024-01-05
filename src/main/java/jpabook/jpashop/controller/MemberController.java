@@ -19,7 +19,10 @@ public class MemberController {
 
     private final MemberService memberService;
 
-
+    /**
+     * Model 객체를 통해 memberForm 이라는 이름으로 'MemberForm' 객체를 뷰로 전달
+     * 이렇게 함으로써 "/members/new" 경로로 들어온 사용자에게 createMemberForm 뷰 페이지에서 MemberForm 객체를 사용하여 새로운 회원 정보를 입력받을 수 있는 폼이 제공될 것임
+     */
     @GetMapping("/members/new")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
