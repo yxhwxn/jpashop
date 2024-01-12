@@ -82,6 +82,9 @@ public class ItemController {
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) {
 
+        // 수정과 같은 기능에서는 itemId 부분이 중요하다.
+        // why? 사용자가 임의로 url을 조작해서 Id 값이 바뀌게 할 경우, 이를 검증해야 하는 코드들이 필요하다(session 객체 보다는 해당 검증 로직 구현을 추천)
+
         Book book = new Book();
         book.setId(form.getId());
         book.setName(form.getName());
