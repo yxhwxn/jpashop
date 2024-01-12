@@ -80,20 +80,32 @@ public class ItemController {
      * 상품 수정
      */
     @PostMapping(value = "/items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
 
         // 수정과 같은 기능에서는 itemId 부분이 중요하다.
         // why? 사용자가 임의로 url을 조작해서 Id 값이 바뀌게 할 경우, 이를 검증해야 하는 코드들이 필요하다(session 객체 보다는 해당 검증 로직 구현을 추천)
 
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        /**
+         * 변경 감지와 수정
+         * !! 준영속 엔티티를 수정하는 방법 !!
+         * 1. 변경 감지
+         * 2. 병합
+         * 변경 감지(dirty checking을 사용하길 추천한다)
+         */
 
-        itemService.saveItem(book);
+        // merge를 사용한 방법
+//        Book book = new Book();
+//        book.setId(form.getId());
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
+//        itemService.saveItem(book);
+
+        // dirty checking(변경 감지) 사용한 방법
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+
         return "redirect:/items";
     }
 }
