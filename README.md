@@ -1,25 +1,7 @@
-# What I Learned 📚
-
-> ## jpashop 개발이 완료되면, 반드시 패키지 모듈 관계 다시 살펴보기❗️ <br>
-> ex. **controller**에서 **service**의 메소드를 호출 하며, **service**에서는 **repository** 메소드를 호출한다.
-
-- `자바 ORM 표준 JPA 프로그래밍 - 기본편` 수강이 완료되면
-    - ▶️ `yh/Desktop/study-docs/spring-inflearn`에 있는 강의자료 보면서 개발 Tip, 개념 이해하기❕
-
----
-
 ## ✅ Project Flow
 
 - Gitflow Workflow(issue branch -> PR)
 - Project board 기능을 활용한 스케줄링(TODO, In progress, Done)
-
-## ✅ Database
-
-- H2 사용법
-    1. 데이터베이스 실행 상태 확인
-        - `{{H2설치경로}}/bin/h2.sh` 파일을 실행해서 H2 데이터베이스를 실행
-    2. `jdbc:h2:tcp://localhost/~/jpashop` 로 접속
-    3. `localhost:8082` 로 url 바꿔서 접속
 
 ## ✅ 애플리케이션 아키텍처
 
@@ -27,7 +9,7 @@
 
 ![Architecture img](https://github.com/yxhwxn/jpashop/assets/87745916/c4a99738-4b10-4d29-bb11-f757fa569e31)
 
-➡️ Controller는 Service만 호출하는 것이 아닌 Repository에도 바로 접근할 수 있는 구조로 설계할 예정(단, 단방향은 동일하게)
+➡️ Controller는 Service만 호출하는 것이 아닌 Repository에도 바로 접근할 수 있는 구조로 설계(단, 단방향은 동일하게)
 
 * 계층형 구조 사용
     * controller, web: 웹 계층
@@ -42,16 +24,6 @@
     * repository
     * service
     * web
-
-## ✅ issue list
-
-> ### issue/1 : 프로젝트 환경설정
-> ### issue/2 : 도메인 분석 설계
-> ### issue/3 : 애플리케이션 구현 준비
-> ### issue/4 : 회원 도메인 개발
-> ### issue/7 : 상품 도메인 개발
-> ### issue/8 : 주문 도메인 개발
-> ### issue/9 : 웹 계층 개발
 
 ## ✅ 엔티티 설계시 주의점
 
