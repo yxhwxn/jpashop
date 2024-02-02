@@ -1,8 +1,3 @@
-## ✅ Project Flow
-
-- Gitflow Workflow(issue branch -> PR)
-- Project board 기능을 활용한 스케줄링(TODO, In progress, Done)
-
 ## ✅ 애플리케이션 아키텍처
 
 ---
