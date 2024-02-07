@@ -59,13 +59,14 @@ public class MemberApiController {
                 .collect(Collectors.toList());
 
         // collect으로 리스트를 바로 내보내게 되면 배열의 형태로 return 되기 때문에, json 형식으로 Result를 거쳐서 반환되어야 함.
-        return new Result(collect);
+        return new Result(collect.size(), collect);
     }
 
     // 더 나은 유연성을 위해 배열 타입의 데이터를 json으로 감싸주는 역할
     @Data
     @AllArgsConstructor
     static class Result<T> {
+        private int count;
         private T data;
     }
 
