@@ -13,12 +13,14 @@
     * domain: 엔티티가 모여 있는 계층, 모든 계층에서 사용
 
 * 패키지 구조
-    * jpabook.jpashop
+    * api
     * domain
     * exception
     * repository
     * service
+    * validation
     * web
+    * dto
 
 ## ✅ 엔티티 설계시 주의점
 
