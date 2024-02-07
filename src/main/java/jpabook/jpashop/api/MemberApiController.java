@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController //@Controller + @ResponseBody
 @RequiredArgsConstructor
@@ -41,6 +43,38 @@ public class MemberApiController {
         return memberService.findMembers();
     }
 
+    /**
+     * 조회 V2: 응답 값으로 엔티티가 아닌 별도의 DTO를 return한다.
+     */
+    @GetMapping("/api/v2/members")
+    @Operation(summary = "전체 회원 정보 조회 API", description = "모든 멤버의 정보(이름, 주소)를 조회한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공",
+                    content = @Content(schema = @Schema()))
+    })
+    public Result membersV2() {
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream()
+                .map(m -> new MemberDto(m.getName(), m.getAddress()))
+                .collect(Collectors.toList());
+
+        // collect으로 리스트를 바로 내보내게 되면 배열의 형태로 return 되기 때문에, json 형식으로 Result를 거쳐서 반환되어야 함.
+        return new Result(collect);
+    }
+
+    // 더 나은 유연성을 위해 배열 타입의 데이터를 json으로 감싸주는 역할
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
+        private Address address;
+    }
 
     /**
      * @RequestBody @Valid Member member
@@ -91,6 +125,11 @@ public class MemberApiController {
      * 4. 그러면 다시 controller 단에서 변경된 데이터를 findMember 에 저장하여 return 함으로써 (포스트 맨에서 확인하면) 응답 데이터가 반환된다.
      */
     @PutMapping("/api/v2/members/{id}")
+    @Operation(summary = "단건 회원 정보 수정 API", description = "특정 멤버의 id 값으로 이름을 수정한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공",
+                    content = @Content(schema = @Schema()))
+    })
     public UpdateMemberResponse updateMemberV2(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateMemberRequest request
