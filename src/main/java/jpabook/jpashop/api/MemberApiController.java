@@ -2,11 +2,10 @@ package jpabook.jpashop.api;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -48,6 +47,36 @@ public class MemberApiController {
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
+    }
+
+    /**
+     * 수정 API
+     * 1. 파라미터로 pathVariable {id} 값과 json 객체로 "name" : "new-hello" 가 Request DTO로 변환되어 요청된다.
+     * 2. 요청된 데이터를 가지고 service 단에서 update를 실행시킨다.
+     * 3. update가 실행되면 @Transactional로 구현한 update 메서드를 통해 값이 바뀌면서 트랜잭션이 끝나고 commit 되는 시점에 jpa가 변경 감지 하여 DB에 update 쿼리를 날린다.
+     * 4. 그러면 다시 controller 단에서 변경된 데이터를 findMember 에 저장하여 return 함으로써 (포스트 맨에서 확인하면) 응답 데이터가 반환된다.
+     */
+    @PutMapping("/api/v2/members/{id}")
+    public UpdateMemberResponse updateMemberV2(
+            @PathVariable("id") Long id,
+            @RequestBody @Valid UpdateMemberRequest request
+    ) {
+        memberService.update(id, request.getName());
+        Member findMember = memberService.findOne(id);
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+    }
+
+    // DTO
+    @Data
+    static class UpdateMemberRequest {
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
+        private String name;
     }
 
     @Data
